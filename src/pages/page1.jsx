@@ -34,9 +34,9 @@ const services = [
 const experience = [
   {
     period: 'CURRENT',
-    role: 'Student Full Stack Developer',
-    company: 'Independent learning & project work',
-    text: 'Developing my skills through hands-on web projects, exploring how frontend interfaces connect with backend logic and data.',
+    role: 'University Student · Semester 3',
+    company: 'Invertis University, Bareilly',
+    text: 'Studying at Invertis University while developing my skills through hands-on web projects and exploring how frontend interfaces connect with backend logic and data.',
   },
   {
     period: 'ONGOING',
@@ -125,11 +125,11 @@ const createMemoryDeck = () => {
 
 const consoleResponses = {
   help: '20 commands: help, about, stack, projects, contact, education, interests, approach, services, certificates, github, linkedin, instagram, email, cv, blinkchat, calculator, cybergame, frontend, backend.',
-  about: 'I’m Abhishek Upadhayay, a second-year student exploring full-stack development by building practical web projects.',
+  about: 'I’m Abhishek Upadhayay, a third-semester student at Invertis University, Bareilly, exploring full-stack development through practical web projects.',
   stack: 'Frontend: HTML, CSS, Tailwind, JavaScript, TypeScript, React, Next.js. Backend & data: Node.js, Express, SQL, MongoDB, Python.',
   projects: 'Featured work: Blink Chat (private messaging), Calculator (everyday utility), and Cyber Guess Game (interactive browser game).',
   contact: 'Email: abhishekupadhyay9878@gmail.com · Phone: +91 98782 29978 · Instagram: @ig.abhishek',
-  education: 'I’m currently a second-year student. I have not added college, course, or graduation details yet.',
+  education: 'I’m studying at Invertis University in Bareilly and am currently in my third semester.',
   interests: 'I enjoy experimenting with side projects, UI inspiration, logic and game ideas, and new technology.',
   approach: 'My approach: understand the goal, plan the experience, build and connect the parts, then test and refine.',
   services: 'I’m interested in frontend development, full-stack features, database-backed applications, and performance improvements.',
@@ -178,7 +178,7 @@ const projects = [
 ]
 
 const stats = [
-  { value: '2nd', label: 'Year student' },
+  { value: '3rd', label: 'Semester' },
   { value: '03', label: 'Featured projects' },
   { value: 'Full stack', label: 'Learning focus' },
 ]
@@ -192,7 +192,9 @@ const certificates = [
 ]
 
 const Page1 = () => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(
+    () => window.localStorage.getItem('portfolio-theme') === 'dark',
+  )
   const [consoleCommand, setConsoleCommand] = useState('')
   const [consoleHistory, setConsoleHistory] = useState([])
   const [selectedPalette, setSelectedPalette] = useState(0)
@@ -224,7 +226,13 @@ const Page1 = () => {
   }, [])
 
   useEffect(() => {
-    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
+    const theme = darkMode ? 'dark' : 'light'
+    document.documentElement.dataset.theme = theme
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      darkMode ? '#0b1020' : '#f6f7fb',
+    )
+    window.localStorage.setItem('portfolio-theme', theme)
   }, [darkMode])
 
   const runConsoleCommand = (command) => {
@@ -286,30 +294,33 @@ const Page1 = () => {
 
   return (
     <div className={`portfolio-shell ${darkMode ? 'theme-dark' : 'theme-light'}`}>
-      <header className="topbar reveal">
-        <a className="brand" href="#home" aria-label="Abhishek Portfolio home">
-          <span className="brand-mark" aria-hidden="true">AU</span>
-          <span>Abhishek Portfolio</span>
-        </a>
+      <div className="site-header reveal">
+        <header className="topbar">
+          <a className="brand" href="#home" aria-label="Abhishek Portfolio home">
+            <span className="brand-mark" aria-hidden="true">AU</span>
+            <span>Abhishek Portfolio</span>
+          </a>
 
-        <nav className="nav">
-          <a href="#about">About</a>
-          <a href="#console">Console</a>
-          <a href="#approach">Approach</a>
-          <a href="#interests">Interests</a>
-          <a href="#lab">Play Lab</a>
-          <a href="#services">Services</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </nav>
+          <nav className="nav">
+            <a href="#about">About</a>
+            <a href="#console">Console</a>
+            <a href="#approach">Approach</a>
+            <a href="#interests">Interests</a>
+            <a href="#lab">Play Lab</a>
+            <a href="#services">Services</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </header>
 
         <div className="header-actions">
           <button
             type="button"
             className="theme-toggle"
             onClick={() => setDarkMode((prev) => !prev)}
-            aria-label="Toggle dark mode"
+            aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
+            aria-pressed={darkMode}
           >
             {darkMode ? '☀️ Light' : '🌙 Dark'}
           </button>
@@ -320,7 +331,7 @@ const Page1 = () => {
             Let&apos;s Talk
           </a>
         </div>
-      </header>
+      </div>
 
       <main>
         <section className="hero section-spacing reveal" id="home">
@@ -333,10 +344,11 @@ const Page1 = () => {
               Building clean digital experiences for the modern web.
             </h1>
             <p>
-              I&apos;m a second-year student exploring full-stack development and building for the
-              modern web. I enjoy moving between visual details and the logic behind them—from
-              responsive interfaces to APIs and data. My current toolkit includes HTML, CSS,
-              Tailwind CSS, JavaScript, TypeScript, React, Next.js, Node.js, SQL, MongoDB, and Python.
+              I&apos;m a third-semester student at Invertis University, Bareilly, exploring full-stack
+              development and building for the modern web. I enjoy moving between visual details
+              and the logic behind them—from responsive interfaces to APIs and data. My current
+              toolkit includes HTML, CSS, Tailwind CSS, JavaScript, TypeScript, React, Next.js,
+              Node.js, SQL, MongoDB, and Python.
             </p>
 
             <div className="cta-row">
@@ -399,10 +411,10 @@ const Page1 = () => {
           <div className="about-grid">
             <div className="about-text">
               <p>
-                I&apos;m Abhishek Upadhayay, a second-year student with a growing interest in
-                full-stack web development. I like understanding how a product fits together: what
-                people see on screen, what happens when they interact with it, and how the data
-                supports the experience.
+                I&apos;m Abhishek Upadhayay, a third-semester student at Invertis University, Bareilly,
+                with a growing interest in full-stack web development. I like understanding how a
+                product fits together: what people see on screen, what happens when they interact
+                with it, and how the data supports the experience.
               </p>
               <p>
                 My projects are a space to learn by doing. Blink Chat explores private messaging

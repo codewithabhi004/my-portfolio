@@ -18,21 +18,21 @@
 }
 
 .theme-dark {
-  --bg: #000000;
-  --bg-2: #080808;
-  --surface: rgba(18, 18, 18, 0.78);
-  --surface-soft: rgba(24, 24, 24, 0.72);
-  --card: rgba(20, 20, 20, 0.82);
-  --card-strong: #181818;
-  --text: #f5f5f5;
-  --text-soft: #c4c4c4;
-  --muted: #929292;
-  --primary: #7b9cff;
-  --primary-2: #b18cff;
-  --warm: #ffae8c;
-  --mint: #84f1dd;
-  --accent: rgba(123, 156, 255, 0.12);
-  --border: rgba(255, 255, 255, 0.1);
+  --bg: #0b1020;
+  --bg-2: #111a2c;
+  --surface: rgba(20, 29, 48, 0.82);
+  --surface-soft: rgba(24, 34, 55, 0.78);
+  --card: rgba(20, 29, 48, 0.9);
+  --card-strong: #141d30;
+  --text: #f3f6ff;
+  --text-soft: #c2ccdf;
+  --muted: #99a6bd;
+  --primary: #8aaeff;
+  --primary-2: #c0a2ff;
+  --warm: #ffb49f;
+  --mint: #91f2e2;
+  --accent: rgba(138, 174, 255, 0.14);
+  --border: rgba(193, 205, 228, 0.16);
   --shadow: rgba(0, 0, 0, 0.42);
 }
 
@@ -78,6 +78,7 @@
   left: 8%;
 }
 
+.site-header,
 .topbar,
 .hero,
 .about-grid,
@@ -92,25 +93,26 @@
   width: 100%;
 }
 
-.topbar {
+.site-header {
   position: sticky;
   top: 14px;
   z-index: 10;
-  display: flex;
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 18px;
   padding: 18px 26px;
-  margin-top: 14px;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 20px;
   backdrop-filter: blur(14px);
   box-shadow: 0 10px 28px rgba(26, 26, 26, 0.03);
-}
-
-.theme-dark .topbar {
-  background: rgba(15, 23, 42, 0.7);
 }
 
 .brand {
@@ -131,6 +133,9 @@
 }
 
 .nav {
+  width: 100%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 22px;
 }
 
@@ -147,7 +152,18 @@
 }
 
 .header-actions {
+  width: fit-content;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
+  margin-left: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 0 10px 28px rgba(26, 26, 26, 0.03);
 }
 
 .theme-toggle,
@@ -192,7 +208,7 @@
 }
 
 .theme-dark .secondary-button {
-  background: rgba(17, 24, 39, 0.7);
+  background: var(--surface);
 }
 
 .primary-button:hover,
@@ -780,16 +796,21 @@
 
 @media (max-width: 900px) {
   .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
     gap: 18px;
   }
 
   .nav {
-    order: 3;
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
   }
 
   .hero,
@@ -824,14 +845,32 @@
     width: min(100% - 18px, 1200px);
   }
 
-  .topbar {
-    padding: 14px 18px;
+  .site-header {
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
     border-radius: 18px;
+    background: var(--surface);
+    box-shadow: 0 10px 28px rgba(26, 26, 26, 0.03);
+  }
+
+  .topbar {
+    padding: 14px 18px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .header-actions {
     width: 100%;
     justify-content: space-between;
+    margin: 0;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .theme-toggle,
@@ -843,6 +882,17 @@
   .nav {
     gap: 12px;
     font-size: 0.95rem;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 2px 6px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
   }
 
   .hero-copy h1 {
@@ -904,23 +954,13 @@
   letter-spacing: -0.06em;
 }
 
-.topbar {
-  background: var(--surface);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-}
-
-.theme-dark .topbar {
-  background: rgba(13, 13, 13, 0.76);
-}
-
 .secondary-button {
   background: var(--surface);
   backdrop-filter: blur(14px);
 }
 
 .theme-dark .secondary-button {
-  background: rgba(24, 24, 24, 0.8);
+  background: var(--surface);
 }
 
 .hero-kicker {
@@ -2399,8 +2439,8 @@
 }
 
 .theme-dark {
-  --text-panel: rgba(255, 255, 255, 0.045);
-  --text-panel-border: rgba(255, 255, 255, 0.075);
+  --text-panel: rgba(255, 255, 255, 0.065);
+  --text-panel-border: rgba(255, 255, 255, 0.11);
 }
 
 .portfolio-shell main p,
